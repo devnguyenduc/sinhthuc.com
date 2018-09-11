@@ -1,0 +1,183 @@
+<!-- Button trigger thông tin sản phẩm -->
+<button type="button" class="btn btn-primary btn-lg d-none" id="btn_info" data-toggle="modal" data-target="#product_info">
+    Launch
+</button>
+
+<!-- Thông tin sản phẩm -->
+<div class="modal fade" id="product_info" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-sm|lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="info_title">Thông tin sản phẩm</h4>
+            </div>
+            <div class="modal-body" id="info_body">
+                Body
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger Giỏ hàng -->
+<button type="button" id="btn_cart" class="btn btn-primary btn-lg d-none" data-toggle="modal" data-target="#cart">
+    Launch
+</button>
+
+<!-- Xuất Giỏ Hàng -->
+<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Thành Tiền</th>
+                    </tr>
+                </thead>
+                <tbody id="add_cart_html">
+                </tbody>
+            </table>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="btn_customer.click()">Mua</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Thanh Chức năng -->
+<div class="container-fluid mt-3 bg-light">
+    <div class="row bg-light">
+        <div class="col-md-1 d-none d-md-block"></div>
+        <div class="col-6 col-md-2">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" style="width:100%" data-toggle="modal" data-target="#map_api">
+                <i class="fa fa-map" aria-hidden="true"></i> Địa Chỉ
+            </button>
+        </div>
+        <div class="col-6 col-md-2">
+            <form class="form-inline">
+                <button class="btn btn-info sign" style="width:100%" onclick="btn_cart.click()" type="button">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Giỏ hàng
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Map -->
+<div class="modal fade" id="map_api" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modelTitleId">Địa Chỉ Cửa Hàng</h4>
+            </div>
+            <div class="modal-body" id="map" style="width:100%;height:400px">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT2iu3rVjlxaW3wd5TPpCTZRpbiFoppYI&language=vi"
+    type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+    var map;
+    function initial_map() {
+        var latlng = new google.maps.LatLng(10.751092, 106.663321);
+        var myOption = {
+            zoom: 20,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map"), myOption);
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(10.751092, 106.663321),
+            map: map,
+            title: "Nhấn để xem chi tiết",
+            draggable: true,
+            animation: google.maps.Animation.DROP // hoặc BOUNCE
+        });
+
+        var info_window = new google.maps.InfoWindow({
+            content: `<strong>Cửa Hàng Sâm Nấm Yến Bảo Trân</strong><br/>
+                Địa chỉ : 12 Phạm Đôn P.10 Q.5 Tp.Hồ Chí Minh<br/>
+                Điện Thoại: 0908.875.055
+                `
+        });
+
+        google.maps.event.addListener(marker, 'click', function(){
+            info_window.open(map,marker);
+        }); 
+        google.maps.event.addListener(marker, 'mouseover', function () {
+            info_window.open(map, marker);
+        });
+        google.maps.event.addListener(marker, 'mouseout', function () {
+            info_window.close(map, marker);
+        });
+    }
+    window.onload = initial_map;
+</script>
+<!-- Thông tin danh sách sản phẩm -->
+<div class="container-fluid content mt-4 bg-light">
+    <div class="row">
+        <div class="d-none d-xl-block col-xl-1 bg-light"></div>
+        <div class="col-12 col-md-12 col-xl-10 bg-light">
+            <fieldset class="card mr-2 mb-5 bg-light">
+                <legend class="ml-5">Tổ yến - Đông Trùng</legend>
+                <div id="content_1"></div>
+            </fieldset>
+            <fieldset class="card mr-2 mb-5 bg-light">
+                <legend class="ml-5">Nấm Linh Chi - Nấm</legend>
+                <div id="content_2"></div>
+            </fieldset>
+            <fieldset class="card mr-2 mb-5 bg-light">
+                <legend class="ml-5">Nhân Sâm - Hồng Sâm</legend>
+                <div id="content_3"></div>
+            </fieldset>
+        </div>
+        <div class="d-none d-xl-block col-xl-1 bg-light"></div>
+    </div>
+</div>
+
+<!-- Btn Thông tin khách hàng -->
+<button type="button" id="btn_customer" class="btn btn-primary btn-lg d-none" data-toggle="modal" data-target="#customerId">
+    Launch
+</button>
+
+<!-- Thông tin khách hàng -->
+<div class="modal fade" id="customerId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="customerTitle">Vui lòng nhập đầy đủ thông tin</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Họ Và Tên</label>
+                    <input type="text" id="name_customer" class="form-control" placeholder="Điền họ và tên" aria-describedby="helpId">
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ liên lạc</label>
+                    <input type="text" id="address_customer" class="form-control" placeholder="Nhập địa chỉ liên lạc" aria-describedby="helpId">
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="number" id="phone_customer" class="form-control" placeholder="Nhập vào số điện thoại liên lạc" aria-describedby="helpId">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="pack">Gửi</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>

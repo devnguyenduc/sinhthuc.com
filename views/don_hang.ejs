@@ -1,0 +1,15 @@
+<% include top %>
+<% include header%>
+    <div>
+        <button class="btn btn-warning" id="btn_don_hang">Reset đơn hàng</button>
+        <div id="quanlydonhang"></div>
+    </div>
+
+    <script>
+        btn_don_hang.onclick = () => {
+            var don_hang = doc_don_hang()
+            xuat_don_hang(quanlydonhang, don_hang)
+        }
+
+    </script>
+<% include bottom %>
