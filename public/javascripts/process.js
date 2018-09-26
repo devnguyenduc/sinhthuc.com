@@ -1,5 +1,5 @@
-link_media = "https://sinhthucstore.files.wordpress.com/"
-link_data = "https://btsource.herokuapp.com"
+link_media = ""
+link_data = ""
 
 data = [];
 data = readData()
